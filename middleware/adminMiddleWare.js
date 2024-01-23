@@ -15,7 +15,7 @@ const adminProtect = asyncHandler(async (req, res, next) => {
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const decodedUser = decoded.id;
-      console.log(decodedUser);
+      // console.log(decodedUser);
       const user = await Admin.findOne({ email: decodedUser });
       if (user?.role == 'admin' || user?.role === 'moderator') {
         next();

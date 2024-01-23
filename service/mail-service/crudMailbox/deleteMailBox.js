@@ -1,9 +1,9 @@
-const Imap = require("node-imap");
+const Imap = require('node-imap');
 
 const imap = new Imap({
-  user: "hstu@team.xdomainhost.com",
-  password: "+{Brre,8r7HSV+LlC.",
-  host: "team.xdomainhost.com",
+  user: 'hstu@team.xdomainhost.com',
+  password: '+{Brre,8r7HSV+LlC.',
+  host: 'team.xdomainhost.com',
   port: 993,
   tls: true,
 });
@@ -33,18 +33,18 @@ function deleteMailbox(mailboxName) {
   });
 }
 
-imap.once("ready", function () {
+imap.once('ready', function () {
   // Specify the name of the new mailbox you want to create
-  const newMailboxName = "TheNewMailbox";
+  const newMailboxName = 'TheNewMailbox';
   createMailbox(newMailboxName);
 });
 
-imap.once("error", function (err) {
+imap.once('error', function (err) {
   console.log(err);
 });
 
-imap.once("end", function () {
-  console.log("Connection ended");
+imap.once('end', function () {
+  console.log('Connection ended');
 });
 
 imap.connect();

@@ -1,1 +1,1 @@
-mail.botgmail.com
+mail.botgmail.com;

@@ -1,1 +1,1 @@
-getMailboxDetails
+getMailboxDetails;

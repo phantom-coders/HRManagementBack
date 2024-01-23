@@ -1,19 +1,19 @@
-const Imap = require("node-imap");
+const Imap = require('node-imap');
 
 const imap = new Imap({
-  user: "hstu@team.xdomainhost.com",
-  password: "+{Brre,8r7HSV+LlC.",
-  host: "team.xdomainhost.com",
+  user: 'hstu@team.xdomainhost.com',
+  password: '+{Brre,8r7HSV+LlC.',
+  host: 'team.xdomainhost.com',
   port: 993,
   tls: true,
 });
 
 function getMailboxDetails(callback) {
-  imap.getBoxes("", function (err, boxes) {
+  imap.getBoxes('', function (err, boxes) {
     if (err) {
-      console.error("Error fetching mailbox details:", err);
+      console.error('Error fetching mailbox details:', err);
     } else {
-      console.log("Mailbox Details:", boxes);
+      console.log('Mailbox Details:', boxes);
     }
 
     // Disconnect after fetching mailbox details
@@ -21,16 +21,16 @@ function getMailboxDetails(callback) {
   });
 }
 
-imap.once("ready", function () {
+imap.once('ready', function () {
   getMailboxDetails();
 });
 
-imap.once("error", function (err) {
+imap.once('error', function (err) {
   console.log(err);
 });
 
-imap.once("end", function () {
-  console.log("Connection ended");
+imap.once('end', function () {
+  console.log('Connection ended');
 });
 
 imap.connect();
