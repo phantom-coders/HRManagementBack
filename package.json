@@ -1,0 +1,44 @@
+{
+  "name": "tmail_app",
+  "description": "Maintained By BD Soft",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "prisma": "^5.8.0",
+    "@prisma/client": "^5.8.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "imap": "^0.8.19",
+    "jsonwebtoken": "^9.0.2",
+    "mailparser": "^3.6.5",
+    "mongoose": "^7.3.3",
+    "node-imap": "^0.9.6",
+    "nodemailer": "^6.9.7",
+    "nodemon": "^3.0.1",
+    "simple-imap": "^0.1.6",
+    "sslcommerz-lts": "^1.1.0",
+    "uuidv4": "^6.2.13"
+  },
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0"
+  },
+  "scripts": {
+    "dev": "nodemon server.js",
+    "postinstall": "prisma generate && prisma db push ",
+    "start": "node server.js",
+    "lint": "eslint . --ext .js,.ts",
+    "pre:format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+    "lint_pre": "yarn pre:format && yarn lint"
+  },
+  "lint-staged": {
+    "*.{js,ts}": "yarn lint_pre"
+  }
+}
