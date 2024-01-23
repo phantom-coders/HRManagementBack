@@ -4,4 +4,4 @@ const app = require('./app');
 // mongoose
 //   .connect(mongoUrl)
 //   .then(() => console.log('database connected successfully'));
-app.listen(port);
+app.listen(port, `port connected ${port}`);

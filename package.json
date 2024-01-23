@@ -1,6 +1,6 @@
 {
-  "name": "tmail_app",
-  "description": "Maintained By BD Soft",
+  "name": "hr_management_app",
+  "description": "Maintained By phantom-coders",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
