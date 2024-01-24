@@ -35,6 +35,10 @@ model Role{
   id Int @id @default(sequence()) 
   user User @relation(fields: [id], references: [id])
   role String
+  levelId String
+
 
   @@map("admin")
 }
+
+
