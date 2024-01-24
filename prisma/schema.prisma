@@ -5,21 +5,25 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  output = "../ERD.png"
+}
+
 datasource db {
-  provider = "mysql"
+  provider = "cockroachdb"
   url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+ 
 }
 
 
 model User{
-  id Int @id @default(autoincrement()) 
+  id Int @id @default(sequence()) 
   name String
   email String @unique
   verified Boolean @default(false)
   password String
-  admin Admin?
-  mailBox MailBox[]
+  role Role[]
   createdAt DateTime @default(now())
 
   @@map("user")
@@ -27,55 +31,10 @@ model User{
 }
 
 
-model Admin{
-  id Int @id @default(autoincrement()) 
+model Role{
+  id Int @id @default(sequence()) 
   user User @relation(fields: [id], references: [id])
-  adminPassword String
-  createdAt DateTime @default(now())
+  role String
 
   @@map("admin")
-}
-
-model MailBox{
-  id Int @id @default(autoincrement()) 
-  user User @relation(fields: [id], references: [id])
-  mailAddress String
-  mailPassword String
-  mailCount Int
-  mailBoxSize Int
-  mailBoxSetting MailBoxSetting?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("mail_box")
-}
-
-
-model MailBoxSetting{
-  id Int @id @default(autoincrement()) 
-  mailBox MailBox @relation(fields: [id], references: [id])
-  mailBoxName String
-  userMaxBox Int
-  boxMaxSize Int
-  boxValidity Int
-  reservedBoxes ReservedBox[]
-  smtpServer String
-  smtpMailAddress String
-  smtpPassword String
-  smtpPort Int
-  smtpSecurity String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("mail_box_setting")
-  
-}
-
-model ReservedBox{
-  id Int @id @default(autoincrement()) 
-  mailBoxSetting MailBoxSetting @relation(fields: [id], references: [id])
-  reservedBoxEmail String
-  createdAt DateTime @default(now())
-
-  @@map("reserved_box")
 }
