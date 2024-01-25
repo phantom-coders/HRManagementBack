@@ -31,6 +31,7 @@ const createUser = async ({ name, email, password, verifyToken }) => {
     data: {
       name,
       email,
+      verified: true,
       password: hashedPassword,
     },
   });
