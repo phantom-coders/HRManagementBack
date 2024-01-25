@@ -1,7 +1,7 @@
 const MailSender = require('../mailSender');
 
-const template = (verifyToken) => {
-  const verificationLink = `${process.env.FrontendUrl}/register?secret=${verifyToken}`;
+const template = (verifyToken, recipient_email) => {
+  const verificationLink = `${process.env.FrontendUrl}/register?email=${recipient_email}&secret=${verifyToken}`;
   return `
       <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff;">
         <p style="color: #666; margin-bottom: 20px;">
@@ -31,7 +31,7 @@ const registerUserMail = async (
   verifyToken,
 ) => {
   const subject = 'Onboarding to HR Management Website: Verify your account.';
-  const description = template(verifyToken);
+  const description = template(verifyToken, recipient_email);
   // console.log(description);
 
   try {
