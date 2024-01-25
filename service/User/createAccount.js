@@ -35,7 +35,7 @@ const createUser = async ({ name, email, password, verifyToken }) => {
       password: hashedPassword,
     },
   });
-  const token = await generateToken(email);
+  const token = await generateToken(result.id);
 
   // Return the user and the token, skipping the password
   return {

@@ -1,45 +1,26 @@
-const User = require('../model/user.model');
-const generateToken = require('../utils/generateToken');
-
+const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcryptjs');
+const generateToken = require('../../utils/generateToken');
+const prisma = new PrismaClient();
 const loginUser = async (email, password) => {
-  const userExists = await User.findOne({ email });
-  if (userExists) {
-    // check whether password is correct or not
-    const isPasswordCorrect = await userExists.matchPassword(password);
-    if (!isPasswordCorrect) {
-      const data = {
-        status: 401,
-        error: 'Password is incorrect',
-      };
-      return data;
-    }
-
-    const data = {
-      status: 200,
-      error: 'User exists',
-      user: {
-        token: generateToken(userExists.email),
-        _id: userExists._id,
-        //send userExists data without password
-        name: userExists.name,
-        email: userExists.email,
-        phone: userExists.phone,
-        current_balance: userExists.current_balance,
-        is_verified: userExists.is_verified,
-        image: userExists.image,
-        total_plans: userExists.total_plans,
-        payment_status: userExists.payment_status,
-        user_about: userExists.user_about,
-        referred_by: userExists.referred_by,
-      },
-    };
-    return data;
-  } else {
-    return (data2 = {
-      status: 400,
-      error: 'user not exists',
-    });
+  const userExists = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  if (!userExists) {
+    throw new Error('Invalid email or password!');
   }
+  const passwordMatch = await bcrypt.compare(password, userExists.password);
+  if (!passwordMatch) {
+    throw new Error('Invalid email or password!');
+  }
+  const token = await generateToken(userExists.id);
+  return {
+    ...userExists,
+    password: undefined,
+    token,
+  };
 };
 
 module.exports = loginUser;
