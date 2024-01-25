@@ -33,7 +33,7 @@
     "prisma-erd-generator": "^1.11.2"
   },
   "scripts": {
-    "dev": "prisma generate && nodemon server.js",
+    "dev": "nodemon server.js",
     "postinstall": "prisma generate && prisma db push ",
     "start": "node server.js",
     "lint": "eslint . --ext .js,.ts",
