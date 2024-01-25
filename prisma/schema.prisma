@@ -23,8 +23,9 @@ model User{
   email String @unique
   verified Boolean @default(false)
   password String
-  role Role[]
   createdAt DateTime @default(now())
+
+  role Role?
 
   @@map("user")
   
@@ -33,12 +34,22 @@ model User{
 
 model Role{
   id Int @id @default(sequence()) 
-  user User @relation(fields: [id], references: [id])
   role String
   levelId String
 
+  level Level?
+  user User @relation(fields: [id], references: [id])
 
-  @@map("admin")
+  @@map("role")
+}
+model Level{
+  id Int @id @default(sequence()) 
+  levelName String
+
+  features String[]
+  role Role @relation(fields: [id], references: [id])
+
+  @@map("level")
 }
 
 
